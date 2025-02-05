@@ -3,6 +3,7 @@ import './globals.css';
 import localFont from 'next/font/local';
 import { ReactNode } from 'react';
 
+// Setup local fonts with styling
 const ibmPlexSans = localFont({
   src: [
     { path: './fonts/IBMPlexSans-Regular.ttf', weight: '400', style: 'normal' },
