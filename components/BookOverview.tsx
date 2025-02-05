@@ -11,7 +11,7 @@ function BookOverview({
   totalCopies,
   availableCopies,
   description,
-  color,
+  coverColor,
   coverUrl,
 }: Book) {
   return (
@@ -50,19 +50,21 @@ function BookOverview({
           <p className='font-bebas-neue text-xl text-dark-100'>Borrow</p>
         </Button>
 
+        {/* Book Cover Image */}
         <div className='relative flex flex-1 justify-center'>
           <div className='relative'>
             <BookCover
               variant='wide'
               className='z-10'
-              coverColor={color}
+              coverColor={coverColor}
               coverUrl={coverUrl}
             />
 
+            {/* Second rotated Book Cover image */}
             <div className='absolute left-16 top-10 rotate-12 opacity-40 max-sm:hidden'>
               <BookCover
                 variant='wide'
-                coverColor={color}
+                coverColor={coverColor}
                 coverUrl={coverUrl}
               />
             </div>
