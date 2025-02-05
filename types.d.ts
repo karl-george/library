@@ -8,8 +8,8 @@ interface Book {
   availableCopies: number;
   description: string;
   color: string;
-  cover: string;
-  video: string;
+  coverUrl: string;
+  videoUrl: string;
   summary: string;
   isLoanedBook?: boolean;
 }
