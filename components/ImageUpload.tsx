@@ -1,5 +1,6 @@
 'use client';
 
+import { toast } from '@/hooks/use-toast';
 import config from '@/lib/config';
 import { cn } from '@/lib/utils';
 import { IKImage, IKUpload, ImageKitProvider } from 'imagekitio-next';
@@ -42,11 +43,22 @@ const ImageUpload = ({
 
   const onError = (error: any) => {
     console.error(error);
+
+    toast({
+      title: 'Image uploaded failed',
+      description: `Your image could not be uploaded. Please try again`,
+      variant: 'destructive',
+    });
   };
 
   const onSuccess = (res: any) => {
     setFile(res);
     onFileChange(res.filePath);
+
+    toast({
+      title: 'Image uploaded successfully',
+      description: `${res.filePath} uploaded successfully`,
+    });
   };
 
   return (
