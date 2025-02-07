@@ -32,13 +32,22 @@ const {
   },
 } = config;
 
-const ImageUpload = () => {
+const ImageUpload = ({
+  onFileChange,
+}: {
+  onFileChange: (filePath: string) => void;
+}) => {
   const ikUploadRef = useRef(null);
   const [file, setFile] = useState<{ filePath: string } | null>(null);
 
-  const onError = (error: any) => {};
+  const onError = (error: any) => {
+    console.error(error);
+  };
 
-  const onSuccess = () => {};
+  const onSuccess = (res: any) => {
+    setFile(res);
+    onFileChange(res.filePath);
+  };
 
   return (
     <ImageKitProvider
