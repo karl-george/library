@@ -1,11 +1,35 @@
 'use server';
 
+import { signIn } from '@/auth';
 import { db } from '@/database/drizzle';
 import { users } from '@/database/schema';
 import { hash } from 'bcryptjs';
 import { eq } from 'drizzle-orm';
 
-const signUp = async (params: AuthCredentials) => {
+export const signInWithCredentials = async (
+  params: Pick<AuthCredentials, 'email' | 'password'>
+) => {
+  const { email, password } = params;
+
+  try {
+    const result = await signIn('credentials', {
+      email,
+      password,
+      redirect: false,
+    });
+
+    if (result?.error) {
+      return { success: false, error: result.error };
+    }
+
+    return { success: true };
+  } catch (error) {
+    console.log(error, 'Signin error');
+    return { success: false, error: 'Signin failed' };
+  }
+};
+
+export const signUp = async (params: AuthCredentials) => {
   const { fullName, email, password, universityId, universityCard } = params;
 
   // Check if user exists
@@ -16,7 +40,7 @@ const signUp = async (params: AuthCredentials) => {
     .limit(1);
 
   if (existingUser.length > 0) {
-    return { sucess: false, error: 'User already exists' };
+    return { success: false, error: 'User already exists' };
   }
 
   const hashedPassword = await hash(password, 10);
@@ -30,10 +54,10 @@ const signUp = async (params: AuthCredentials) => {
       universityCard,
     });
 
-    // await signInWithCredentials(email, password)
+    await signInWithCredentials({ email, password });
     return { success: true };
   } catch (error) {
     console.log(error, 'Sign up error');
-    return { sucess: false, error: 'Sign up failed' };
+    return { success: false, error: 'Sign up failed' };
   }
 };
