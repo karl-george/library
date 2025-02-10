@@ -23,6 +23,8 @@ import {
 } from 'react-hook-form';
 import { ZodType } from 'zod';
 import ImageUpload from './ImageUpload';
+import { useRouter } from 'next/navigation';
+import { toast } from '@/hooks/use-toast';
 
 interface Props<T extends FieldValues> {
   schema: ZodType<T>;
@@ -38,6 +40,7 @@ const AuthForm = <T extends FieldValues>({
   onSubmit,
 }: Props<T>) => {
   const isSignIn = type === 'SIGN_IN';
+  const router = useRouter();
 
   // Define the form
   const form: UseFormReturn<T> = useForm({
@@ -47,8 +50,23 @@ const AuthForm = <T extends FieldValues>({
 
   // 2. Define a submit handler.
   const handleSubmit: SubmitHandler<T> = async (data) => {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
+    const result = await onSubmit(data);
+
+    if (result.success) {
+      toast({
+        title: 'Success',
+        description: isSignIn
+          ? 'You have signed in successfully'
+          : 'You have signed up successfully',
+      });
+      router.push('/');
+    } else {
+      toast({
+        title: `Error ${isSignIn ? 'Error Signing in' : 'Error Signing up'}`,
+        description: result.error,
+        variant: 'destructive',
+      });
+    }
   };
 
   return (
