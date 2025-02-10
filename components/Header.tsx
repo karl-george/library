@@ -1,13 +1,14 @@
 'use client';
 
-import { cn } from '@/lib/utils';
+import { cn, getInitials } from '@/lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
+import { Session } from 'next-auth';
 
-function Header() {
+function Header({ session }: { session: Session }) {
   const pathname = usePathname();
 
   return (
@@ -30,8 +31,9 @@ function Header() {
         <li>
           <Link href={'my-profile'}>
             <Avatar>
-              <AvatarImage src='https://github.com/shadcn.png' />
-              <AvatarFallback>CN</AvatarFallback>
+              <AvatarFallback className='bg-amber-100'>
+                {getInitials(session?.user?.name || 'IN')}
+              </AvatarFallback>
             </Avatar>
           </Link>
         </li>
