@@ -15,6 +15,7 @@ const layout = async ({ children }: { children: ReactNode }) => {
   const session = await auth();
   if (!session) redirect('/sign-in');
 
+  // Update users last activity date
   after(async () => {
     if (!session?.user?.id) return;
 
