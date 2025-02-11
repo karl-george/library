@@ -1,7 +1,9 @@
 import { auth } from '@/auth';
+import Header from '@/components/admin/Header';
+import Sidebar from '@/components/admin/Sidebar';
+import '@/styles/admin.css';
 import { redirect } from 'next/navigation';
 import React from 'react';
-import '@/styles/admin.css';
 
 const Layout = async ({ children }: { children: React.ReactNode }) => {
   const session = await auth();
@@ -12,9 +14,9 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
 
   return (
     <main className='flex min-h-screen w-full flex-row'>
-      <p>Sidebar</p>
+      <Sidebar session={session} />
       <div className='admin-container'>
-        <p>Header</p>
+        <Header session={session} />
         {children}
       </div>
     </main>
