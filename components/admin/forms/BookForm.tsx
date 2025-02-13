@@ -17,6 +17,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import ColorPicker from '../ColorPicker';
 
 interface Props extends Partial<Book> {
   type?: 'create' | 'update';
@@ -182,7 +183,12 @@ const BookForm = ({ type, ...book }: Props) => {
               <FormLabel className='text-base font-normal text-dark-500'>
                 Primary Colour
               </FormLabel>
-              <FormControl>{/* Colour Picker */}</FormControl>
+              <FormControl>
+                <ColorPicker
+                  onPickerChange={field.onChange}
+                  value={field.value}
+                />
+              </FormControl>
               <FormMessage />
             </FormItem>
           )}
