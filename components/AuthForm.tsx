@@ -22,7 +22,7 @@ import {
   UseFormReturn,
 } from 'react-hook-form';
 import { ZodType } from 'zod';
-import ImageUpload from './ImageUpload';
+import FileUpload from './FileUpload';
 import { useRouter } from 'next/navigation';
 import { toast } from '@/hooks/use-toast';
 
@@ -96,7 +96,14 @@ const AuthForm = <T extends FieldValues>({
                   </FormLabel>
                   <FormControl>
                     {field.name === 'universityCard' ? (
-                      <ImageUpload onFileChange={field.onChange} />
+                      <FileUpload
+                        type='image'
+                        accept='image/*'
+                        placeholder='Upload your ID'
+                        folder='ids'
+                        variant='dark'
+                        onFileChange={field.onChange}
+                      />
                     ) : (
                       <Input
                         required
