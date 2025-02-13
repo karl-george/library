@@ -44,7 +44,9 @@ const BookForm = ({ type, ...book }: Props) => {
   });
 
   // 2. Define a submit handler.
-  const onSubmit = async (values: z.infer<typeof bookSchema>) => {};
+  const onSubmit = async (values: z.infer<typeof bookSchema>) => {
+    console.log(values);
+  };
 
   return (
     <Form {...form}>
@@ -169,6 +171,7 @@ const BookForm = ({ type, ...book }: Props) => {
                   folder='books/covers'
                   variant='light'
                   onFileChange={field.onChange}
+                  value={field.value}
                 />
               </FormControl>
               <FormMessage />
@@ -229,6 +232,7 @@ const BookForm = ({ type, ...book }: Props) => {
                   folder='books/videos'
                   variant='light'
                   onFileChange={field.onChange}
+                  value={field.value}
                 />
               </FormControl>
               <FormMessage />
