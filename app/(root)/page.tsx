@@ -1,9 +1,8 @@
 import { auth } from '@/auth';
 import BookList from '@/components/BookList';
 import BookOverview from '@/components/BookOverview';
-import { sampleBooks } from '@/constants';
 import { db } from '@/database/drizzle';
-import { books, users } from '@/database/schema';
+import { books } from '@/database/schema';
 import { desc } from 'drizzle-orm';
 
 const Home = async () => {
@@ -17,7 +16,7 @@ const Home = async () => {
 
   return (
     <>
-      <BookOverview {...latestBooks[0]} userId={session?.user.id as string} />
+      <BookOverview {...latestBooks[0]} userId={session?.user?.id as string} />
       <BookList
         title='Latest Books'
         books={latestBooks.slice(1)}
