@@ -1,5 +1,6 @@
 import { auth } from '@/auth';
 import BookOverview from '@/components/BookOverview';
+import BookVideo from '@/components/BookVideo';
 import { db } from '@/database/drizzle';
 import { books } from '@/database/schema';
 import { eq } from 'drizzle-orm';
@@ -27,7 +28,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
           <section className='flex flex-col gap-7'>
             <h3>Video</h3>
 
-            {/* Video Component */}
+            <BookVideo videoUrl={bookDetails.videoUrl} />
           </section>
 
           {/* Summary */}
